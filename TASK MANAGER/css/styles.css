@@ -1,4 +1,6 @@
-/* VARIABLES DE COLORES */
+/* ==========================================
+    VARIABLES Y ESTILOS GENERALES
+========================================== */
 
 :root {
     --colorprimario: #1e4f73;
@@ -7,7 +9,9 @@
     --colortexto: #243746;
 }
 
-/* ESTILOS GENERALES */
+/* ==========================================
+    ESTILOS GENERALES
+========================================== */
 
 body {
     background-color: var(--colorfondo);
@@ -54,7 +58,9 @@ h2 {
     margin-top: 0;
 }
 
-/* FORMULARIO */
+/* ==========================================
+    ESTILO FORMULARIO
+========================================== */
 
 form {
     display: flex;
@@ -74,7 +80,10 @@ input, select {
     font-size: 15px;
 }
 
-/* BOTONES */
+/* ==========================================
+    BOTONES
+========================================== */
+
 
 button {
     background-color: var(--colorsecundario);
@@ -92,7 +101,47 @@ button:hover {
     transform: scale(1.02);
 }
 
-/* TARJETAS DE ESTADISTICAS */
+.tarjeta-tarea button {
+    background-color: var(--colorsecundario);
+    color: white;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.tarjeta-tarea button:hover {
+    background-color: var(--colorprimario);
+}
+
+/*BOTON PARA ELIMINAR TAREAS*/
+
+.tarjeta-tarea .boton-eliminar {
+    background-color: #c0392b;
+    margin-left: 10px;
+}
+
+.tarjeta-tarea .boton-eliminar:hover {
+    background-color: #922b21;
+}
+
+
+/* BOTON PARA EDITAR TAREAS */
+
+.tarjeta-tarea .boton-editar {
+    background-color: #d68910;
+    margin-left: 10px;
+}
+
+.tarjeta-tarea .boton-editar:hover {
+    background-color: #b9770e;
+}
+
+
+/* ==========================================
+    TARJETAS
+========================================== */
 
 .tarjetas {
     display: flex;
@@ -120,7 +169,9 @@ button:hover {
     font-weight: bold;
 }
 
-/* FILTROS Y BUSQUEDA */
+/* ==========================================
+    ESTILO FILTRO Y BUSQUEDA
+========================================== */
 
 .filtros {
     display: flex;
@@ -128,7 +179,9 @@ button:hover {
     gap: 12px;
 }
 
-/* LISTA DE TAREAS */
+/* ==========================================
+    ESTILO LISTA DE TAREAS
+========================================== */
 
 .lista-tareas {
     min-height: 150px;
@@ -138,7 +191,10 @@ button:hover {
     padding: 10px;
 }
 
-/* PIE DE PAGINA */
+/* ==========================================
+    PIE DE PAGINA
+========================================== */
+
 
 footer {
     background-color: var(--colorprimario);
@@ -148,7 +204,9 @@ footer {
     margin-top: 30px;
 }
 
-/* DISEÑO RESPONSIVE */
+/* ==========================================
+    DISENO RESPONSIVE
+========================================== */
 
 @media (max-width: 700px) {
 
@@ -169,3 +227,28 @@ footer {
     }
 
 }
+
+
+/* ==========================================
+    TARJETAS DE LAS TAREAS
+========================================== */
+
+.tarjeta-tarea {
+    background-color: #e2edf5;
+    border: 1px solid #b8c9d6;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.tarjeta-tarea h3 {
+    color: var(--colorprimario);
+    font-size: 18px;
+    margin-top: 0;
+}
+
+.tarjeta-tarea p {
+    color: var(--colortexto);
+    font-size: 15px;
+}
+
