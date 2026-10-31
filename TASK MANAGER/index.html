@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>TaskManager - Gestión de Tareas</title>
+
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+
+    <body>
+
+        <header>
+            <h1>TaskManager</h1>
+            <p>Aplicación para gestionar mis tareas</p>
+        </header>
+
+        <main>
+
+            <!-- FORMULARIO PARA AGREGAR TAREAS -->
+
+            <section class="formulario-tareas">
+
+                <h2>Agregar nueva tarea</h2>
+
+                <form id="formulario">
+
+                    <label for="titulo">Título de la tarea:</label>
+                    <input type="text" id="titulo" name="titulo">
+
+                    <label for="prioridad">Prioridad:</label>
+                    <select id="prioridad" name="prioridad">
+                        <option value="Alta">Alta</option>
+                        <option value="Media">Media</option>
+                        <option value="Baja">Baja</option>
+                    </select>
+
+                    <button type="button" id="agregar">
+                        Agregar tarea
+                    </button>
+
+                </form>
+
+                <div id="resultado"></div>
+
+            </section>
+
+            <!-- ESTADISTICAS DE LAS TAREAS -->
+
+            <section class="estadisticas">
+
+                <h2>Resumen de tareas</h2>
+
+                <div class="tarjetas">
+
+                    <div class="tarjeta">
+                        <h3>Total de tareas</h3>
+                        <p id="total">0</p>
+                    </div>
+
+                    <div class="tarjeta">
+                        <h3>Pendientes</h3>
+                        <p id="pendientes">0</p>
+                    </div>
+
+                    <div class="tarjeta">
+                        <h3>Completadas</h3>
+                        <p id="completadas">0</p>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- FILTROS Y BUSQUEDA -->
+
+            <section class="filtros">
+
+                <h2>Buscar y filtrar tareas</h2>
+
+                <label for="buscar">Buscar tarea:</label>
+                <input type="text" id="buscar" name="buscar">
+
+                <label for="estado">Estado:</label>
+                <select id="estado" name="estado">
+                    <option value="Todas">Todas</option>
+                    <option value="Pendientes">Pendientes</option>
+                    <option value="Completadas">Completadas</option>
+                </select>
+
+                <label for="ordenar">Ordenar por:</label>
+                <select id="ordenar" name="ordenar">
+                    <option value="fecha">Fecha de creación</option>
+                    <option value="prioridad">Prioridad</option>
+                </select>
+
+            </section>
+
+            <!-- LISTA DE TAREAS -->
+
+            <section class="lista-tareas">
+
+                <h2>Mis tareas</h2>
+
+                <div id="contenedor-tareas">
+                    <p>Todavía no hay tareas para mostrar.</p>
+                </div>
+
+            </section>
+
+        </main>
+
+        <footer>
+            <p> 2026 TaskManager - Actividad Integradora 2</p>
+        </footer>
+
+        <script src="js/app.js"></script>
+
+    </body>
+</html>
+

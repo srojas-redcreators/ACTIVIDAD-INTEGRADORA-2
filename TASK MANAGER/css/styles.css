@@ -1,0 +1,171 @@
+/* VARIABLES DE COLORES */
+
+:root {
+    --colorprimario: #1e4f73;
+    --colorsecundario: #337d78;
+    --colorfondo: #f1f5f9;
+    --colortexto: #243746;
+}
+
+/* ESTILOS GENERALES */
+
+body {
+    background-color: var(--colorfondo);
+    color: var(--colortexto);
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: var(--colorprimario);
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+header h1 {
+    font-size: 36px;
+    margin: 10px;
+}
+
+header p {
+    font-size: 16px;
+}
+
+main {
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+}
+
+section {
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border: 1px solid #d5e0e8;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px #dce5eb;
+}
+
+h2 {
+    color: var(--colorprimario);
+    font-size: 24px;
+    margin-top: 0;
+}
+
+/* FORMULARIO */
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+label {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+input, select {
+    padding: 12px;
+    border: 1px solid #b8c9d6;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+/* BOTONES */
+
+button {
+    background-color: var(--colorsecundario);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: var(--colorprimario);
+    transform: scale(1.02);
+}
+
+/* TARJETAS DE ESTADISTICAS */
+
+.tarjetas {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.tarjeta {
+    background-color: #e2edf5;
+    border: 1px solid #b8c9d6;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    flex: 1;
+}
+
+.tarjeta h3 {
+    color: var(--colorprimario);
+    font-size: 18px;
+}
+
+.tarjeta p {
+    color: var(--colorsecundario);
+    font-size: 32px;
+    font-weight: bold;
+}
+
+/* FILTROS Y BUSQUEDA */
+
+.filtros {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* LISTA DE TAREAS */
+
+.lista-tareas {
+    min-height: 150px;
+}
+
+#contenedor-tareas {
+    padding: 10px;
+}
+
+/* PIE DE PAGINA */
+
+footer {
+    background-color: var(--colorprimario);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 30px;
+}
+
+/* DISEÑO RESPONSIVE */
+
+@media (max-width: 700px) {
+
+    main {
+        width: 95%;
+    }
+
+    section {
+        padding: 15px;
+    }
+
+    .tarjetas {
+        flex-direction: column;
+    }
+
+    header h1 {
+        font-size: 28px;
+    }
+
+}
