@@ -7,6 +7,13 @@ const prioridad = document.getElementById("prioridad");
 const boton = document.getElementById("agregar");
 const resultado = document.getElementById("resultado");
 const contenedor = document.getElementById("contenedor-tareas");
+const total = document.getElementById("total");
+const pendientes = document.getElementById("pendientes");
+const completadas = document.getElementById("completadas");
+const estado = document.getElementById("estado");
+const buscar = document.getElementById("buscar");
+const ordenar = document.getElementById("ordenar");
+
 
 //ARREGLO PARA GUARDAR LAS TAREAS
 
@@ -15,6 +22,147 @@ let tareas = [];
 //VARIABLE PARA SABER SI ESTAMOS EDITANDO UNA TAREA
 
 let tareaEditar = null;
+
+
+
+//FUNCION PARA ACTUALIZAR LAS ESTADISTICAS
+
+function actualizarEstadisticas(){
+
+    let cantidadPendientes = 0;
+    let cantidadCompletadas = 0;
+
+    // RECORRER EL ARREGLO DE TAREAS
+
+    for (let i = 0; i < tareas.length; i++){
+
+        if (tareas[i].completada === true){
+
+            cantidadCompletadas++;
+
+        } else {
+
+            cantidadPendientes++;
+
+        }
+
+    }
+
+    // MOSTRAR LOS RESULTADOS EN EL HTML
+
+    total.textContent = tareas.length;
+    pendientes.textContent = cantidadPendientes;
+    completadas.textContent = cantidadCompletadas;
+
+}
+
+//FUNCION PARA MOSTRAR Y BUSCAR LAS TAREAS SEGUN EL ESTADO
+
+function mostrarTareas() {
+
+    // LIMPIAR EL CONTENEDOR
+
+    contenedor.innerHTML = "";
+
+    let tareasFiltradas = [];
+
+    // FILTRAR POR ESTADO
+
+    if (estado.value === "Pendientes"){
+
+        tareasFiltradas = tareas.filter(function(tarea){
+            return tarea.completada === false;
+        });
+
+    } else if (estado.value === "Completadas"){
+
+        tareasFiltradas = tareas.filter(function(tarea){
+            return tarea.completada === true;
+        });
+
+    } else {
+
+        tareasFiltradas = tareas;
+
+    }
+
+    // BUSCAR TAREAS POR TITULO
+
+    if (buscar.value.trim() !== ""){
+
+        tareasFiltradas = tareasFiltradas.filter(function(tarea){
+
+            return tarea.titulo.toLowerCase().includes(buscar.value.trim().toLowerCase());
+
+        });
+
+    }
+    
+    // ORDENAR LAS TAREAS
+    
+    // CREAR UNA COPIA DEL ARREGLO PARA ORDENAR
+
+    tareasFiltradas = tareasFiltradas.slice();
+
+    if (ordenar.value === "prioridad"){
+
+    //ORDENAR POR PRIORIDAD: ALTA, MEDIA Y BAJA
+
+        tareasFiltradas.sort(function(a, b){
+
+        let prioridadA = 0;
+        let prioridadB = 0;
+
+        if (a.prioridad === "Alta"){
+            prioridadA = 3;
+        } else if (a.prioridad === "Media"){
+            prioridadA = 2;
+        } else {
+            prioridadA = 1;
+        }
+
+        if (b.prioridad === "Alta"){
+            prioridadB = 3;
+        } else if (b.prioridad === "Media"){
+            prioridadB = 2;
+        } else {
+            prioridadB = 1;
+        }
+
+        return prioridadB - prioridadA;
+
+    });
+
+} else {
+
+    //ORDENAR POR FECHA DE CREACION: MAS RECIENTES PRIMERO
+
+    tareasFiltradas.sort(function(a, b){
+
+        return new Date(b.fecha) - new Date(a.fecha);
+
+    });
+
+}
+
+    // MOSTRAR LAS TAREAS
+
+    for (let i = 0; i < tareasFiltradas.length; i++){
+
+        contenedor.appendChild(tareasFiltradas[i].tarjeta);
+
+    }
+
+    // MENSAJE SI NO HAY RESULTADOS
+
+    if (tareasFiltradas.length === 0){
+
+        contenedor.textContent = "No hay tareas para mostrar.";
+
+    }
+
+}
+
 
 //BOTON AGREGAR
 
@@ -40,6 +188,7 @@ boton.addEventListener("click", function(){
 
         tareaEditar.nombreTarea.textContent = tareaEditar.titulo;
         tareaEditar.prioridadTarea.textContent = "Prioridad: " + tareaEditar.prioridad;
+        mostrarTareas();
 
         //LIMPIAR EL FORMULARIO
 
@@ -69,11 +218,14 @@ boton.addEventListener("click", function(){
         //AGREGAR LA TAREA AL ARREGLO
 
         tareas.push(tarea);
+        actualizarEstadisticas();
 
         //CREAR ELEMENTOS HTML
 
         const tarjeta = document.createElement("div");
         tarjeta.className = "tarjeta-tarea";
+        
+        tarea.tarjeta = tarjeta;
 
         const nombreTarea = document.createElement("h3");
         nombreTarea.textContent = tarea.titulo;
@@ -98,7 +250,7 @@ boton.addEventListener("click", function(){
         
         //EVENTO DEL BOTON EDITAR
 
-        botonEditar.addEventListener("click", function() {
+        botonEditar.addEventListener("click", function(){
 
             //COLOCAR LOS DATOS EN EL FORMULARIO
 
@@ -120,9 +272,9 @@ boton.addEventListener("click", function(){
 
         //EVENTO DEL BOTON COMPLETAR
 
-        botonCompletar.addEventListener("click", function() {
+        botonCompletar.addEventListener("click", function(){
 
-            if (tarea.completada === false) {
+            if (tarea.completada === false){
 
                 tarea.completada = true;
 
@@ -141,14 +293,16 @@ boton.addEventListener("click", function(){
                 botonCompletar.textContent = "Completar tarea";
 
             }
-
+            
+            actualizarEstadisticas();
+            mostrarTareas();
             console.table(tareas);
 
         });
 
         //EVENTO DEL BOTON ELIMINAR
 
-        botonEliminar.addEventListener("click", function() {
+        botonEliminar.addEventListener("click", function(){
 
             //BUSCAR LA POSICION DE LA TAREA EN EL ARREGLO
 
@@ -156,11 +310,12 @@ boton.addEventListener("click", function(){
 
             //ELIMINAR LA TAREA DEL ARREGLO
 
-            if (posicion !== -1) {
+            if (posicion !== -1){
 
                 tareas.splice(posicion, 1);
 
             }
+            actualizarEstadisticas();
 
             //ELIMINAR LA TARJETA DE LA PANTALLA
 
@@ -168,7 +323,7 @@ boton.addEventListener("click", function(){
             
             //CANCELAR LA EDICION SI SE ELIMINA ESA TAREA
 
-            if (tareaEditar === tarea) {
+            if (tareaEditar === tarea){
 
                 tareaEditar = null;
 
@@ -181,15 +336,10 @@ boton.addEventListener("click", function(){
 
             //MOSTRAR MENSAJE SI NO QUEDAN TAREAS
 
-            if (tareas.length === 0) {
-
-                contenedor.innerHTML = "Todavía no hay tareas para mostrar.";
-
-            }
-
             resultado.textContent = "Tarea eliminada correctamente.";
             resultado.style.color = "green";
-
+            
+            mostrarTareas();
             console.table(tareas);
 
         });
@@ -207,11 +357,11 @@ boton.addEventListener("click", function(){
 
         //ELIMINAR EL MENSAJE INICIAL
 
-        if (tareas.length === 1) {
+        if (tareas.length === 1){
             contenedor.innerHTML = "";
         }
 
-        contenedor.appendChild(tarjeta);
+        mostrarTareas();
 
         //MOSTRAR MENSAJE DE CONFIRMACION
 
@@ -227,3 +377,31 @@ boton.addEventListener("click", function(){
     }
 
 });
+
+//EVENTO PARA FILTRAR LAS TAREAS
+estado.addEventListener("change", function(){
+
+    mostrarTareas();
+
+});
+
+
+//EVENTO PARA BUSCAR TAREAS EN TIEMPO REAL
+
+buscar.addEventListener("input", function(){
+
+    mostrarTareas();
+
+});
+
+
+//EVENTO PARA ORDENAR LAS TAREAS
+
+ordenar.addEventListener("change", function(){
+
+    mostrarTareas();
+
+});
+
+
+
